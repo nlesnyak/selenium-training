@@ -1,4 +1,4 @@
-package ru.training.selenium;
+package ru.selenium.training;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,7 +26,7 @@ public class MyFirstTest {
 
     @Before
     public void start(){
-        //System.setProperty("webdriver.chrome.driver", "C:\\workspace\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\workspace\\chromedriver.exe");
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
