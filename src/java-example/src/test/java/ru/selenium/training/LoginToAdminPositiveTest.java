@@ -22,13 +22,13 @@ public class LoginToAdminPositiveTest {
     public void start() {
 
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, 2);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @Test
     public void loginToAdminPositiveTest(){
-        driver.get("http://localhost/litecart/admin/login.php");
+        driver.get("http://localhost:8080/litecart/admin/login.php");
         driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 
         //WebElement loginField = driver.findElement(By.xpath("//input[@name='username']"));

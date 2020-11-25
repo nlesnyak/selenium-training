@@ -18,7 +18,7 @@ public class HomeWork02 {
     @Before
     public void start() {
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, 2);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
