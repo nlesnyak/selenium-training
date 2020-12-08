@@ -1,20 +1,19 @@
-package ru.selenium.training;
+package ru.selenium.training.tests;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.selenium.training.TestBase;
 
-import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class OpenPageInDifferentBrowsers {
     private WebDriver driver = null;
     private WebDriverWait wait;
-    String current_browser = "chrome";
+//    String current_browser = "chrome";
 
 //    @Before
 //    public void startBrowser() {
@@ -31,8 +30,6 @@ public class OpenPageInDifferentBrowsers {
 //        }
 //    }
 
-
-
     @Test
     public void openPages() {
         //String current_browser = "firefox";
@@ -45,7 +42,6 @@ public class OpenPageInDifferentBrowsers {
         driver = new FirefoxDriver();
         driver.get("http://www.yandex.ru");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
     }
 
     @After
