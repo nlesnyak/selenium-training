@@ -14,7 +14,7 @@ public class ApplicationManager {
 
     public void init() {
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 2);
+        wait = new WebDriverWait(driver, 5);
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
