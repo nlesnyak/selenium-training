@@ -27,41 +27,33 @@ public class CheckDescriptionOfProductTest extends TestBase {
         List<WebElement> campaignArticle = ApplicationManager.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(campaignArticlesListLocatorMP));
         for (int i = 0; i < campaignArticle.size(); i++) {
 
-            String articleNameMainPageText = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(campaignArticleNameLocator)).getText();
-
-            WebElement articleOldPriceMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceLocatorMainPage));
-            String articleOldPriceMainPageText = articleOldPriceMainPage.getText();
-
-            WebElement articleNewPriceMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceLocatorMainPage));
-            String articleNewPriceMainPageText = articleNewPriceMainPage.getText();
+            String articleNameMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(campaignArticleNameLocator)).getText();
+            String articleOldPriceMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceLocatorMainPage)).getText();
+            String articleNewPriceMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceLocatorMainPage)).getText();
 
             campaignArticle.get(i).click();
-            String articleNameOnProductPageText = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNameOnProductPageLocator)).getText();
-
-            WebElement articleOldPriceOnProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceProductPageLocator));
-            String articleOldPriceOnProductPageText = articleOldPriceOnProductPage.getText();
-
-            WebElement articleNewPriceOnProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceProductPageLocator));
-            String articleNewPriceOnProductPageText = articleNewPriceOnProductPage.getText();
+            String articleNameOnProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNameOnProductPageLocator)).getText();
+            String articleOldPriceOnProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceProductPageLocator)).getText();
+            String articleNewPriceOnProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceProductPageLocator)).getText();
 
             System.out.println("Check elements on the main page and the page of the product: ");
 
-            if (articleNameMainPageText.equals(articleNameOnProductPageText)) {
-                System.out.println("-> compare name " + articleNameMainPageText + " with " + articleNameOnProductPageText + ": OK");
+            if (articleNameMainPage.equals(articleNameOnProductPage)) {
+                System.out.println("-> compare name " + articleNameMainPage + " with " + articleNameOnProductPage + ": OK");
             } else {
-                System.out.println("-> compare name " + articleNameMainPageText + " with " + articleNameOnProductPageText + ": NOK");
+                System.out.println("-> compare name " + articleNameMainPage + " with " + articleNameOnProductPage + ": NOK");
             }
 
-            if (articleOldPriceMainPageText.equals(articleOldPriceOnProductPageText)) {
-                System.out.println("-> compare old price " + articleOldPriceMainPageText + " with " + articleOldPriceOnProductPageText + ": OK");
+            if (articleOldPriceMainPage.equals(articleOldPriceOnProductPage)) {
+                System.out.println("-> compare old price " + articleOldPriceMainPage + " with " + articleOldPriceOnProductPage + ": OK");
             } else {
-                System.out.println("-> compare old price " + articleOldPriceMainPageText + " with " + articleOldPriceOnProductPageText + ": NOK");
+                System.out.println("-> compare old price " + articleOldPriceMainPage + " with " + articleOldPriceOnProductPage + ": NOK");
             }
 
-            if (articleNewPriceMainPageText.equals(articleNewPriceOnProductPageText)) {
-                System.out.println("-> compare new price " + articleNewPriceMainPageText + " with " + articleNewPriceOnProductPageText + ": OK");
+            if (articleNewPriceMainPage.equals(articleNewPriceOnProductPage)) {
+                System.out.println("-> compare new price " + articleNewPriceMainPage + " with " + articleNewPriceOnProductPage + ": OK");
             } else {
-                System.out.println("-> compare new price " + articleNewPriceMainPageText + " with " + articleNewPriceOnProductPageText + ": NOK");
+                System.out.println("-> compare new price " + articleNewPriceMainPage + " with " + articleNewPriceOnProductPage + ": NOK");
             }
         }
 
@@ -72,21 +64,17 @@ public class CheckDescriptionOfProductTest extends TestBase {
 
         app.openLitecartMall();
         List<WebElement> campaignArticle = ApplicationManager.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(campaignArticlesListLocatorMP));
-        //article = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleLocator));
-        System.out.println("");
         System.out.println("Color and style on the main page:");
 
         for (int i = 0; i < campaignArticle.size(); i++) {
 
+            //check colors
             String articleOldPriceColorMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceLocatorMainPage)).getCssValue("color");
-
             System.out.println("Color of old price: " + articleOldPriceColorMainPage);
-            // совпадение с серым цветом  - add
             defineColor(articleOldPriceColorMainPage);
 
             String articleNewPriceColorMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceLocatorMainPage)).getCssValue("color");
             System.out.println("Color of old price: " + articleNewPriceColorMainPage);
-            // совпадение с красным цветом  - add
             defineColor(articleNewPriceColorMainPage);
 
             //check text sizes
@@ -122,15 +110,14 @@ public class CheckDescriptionOfProductTest extends TestBase {
 
         for (int i = 0; i < campaignArticle.size(); i++) {
             campaignArticle.get(i).click();
-            String articleOldPriceColorProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceProductPageLocator)).getCssValue("color");
 
+            //check colors
+            String articleOldPriceColorProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceProductPageLocator)).getCssValue("color");
             System.out.println("Color of old price: " + articleOldPriceColorProductPage);
-            // совпадение с серым цветом  - add
             defineColor(articleOldPriceColorProductPage);
 
             String articleNewPriceColorProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceProductPageLocator)).getCssValue("color");
             System.out.println("Color of old price: " + articleNewPriceColorProductPage);
-            // совпадение с красным цветом  - add
             defineColor(articleNewPriceColorProductPage);
 
             //check text sizes
