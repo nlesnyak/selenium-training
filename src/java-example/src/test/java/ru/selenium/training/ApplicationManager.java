@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
@@ -36,5 +37,9 @@ public class ApplicationManager {
 
         WebElement loginButton = ApplicationManager.wait.until(visibilityOfElementLocated(By.cssSelector("button")));
         loginButton.click();
+    }
+
+    public void openLitecartMall() {
+        ApplicationManager.driver.navigate().to("http://localhost:8080/litecart/");
     }
 }

@@ -47,9 +47,9 @@ public class CheckCountriesAndGeoonesSortingTest extends TestBase {
 
         for (int i = 0; i < countriesNamesListText.size(); i++) {
             if(countriesNamesListText.get(i).equals(sortedCountriesNamesList.get(i))) {
-                System.out.println("compare: " + countriesNamesListText.get(i) + " with: " + sortedCountriesNamesList.get(i) + " = true");
+                System.out.println("compare: " + countriesNamesListText.get(i) + " with: " + sortedCountriesNamesList.get(i) + " = ok");
             } else {
-                System.out.println("compare: " + countriesNamesListText.get(i) + " with: " + sortedCountriesNamesList.get(i) + " = false");
+                System.out.println("compare: " + countriesNamesListText.get(i) + " with: " + sortedCountriesNamesList.get(i) + " = nok");
             }
 
         }
