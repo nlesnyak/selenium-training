@@ -8,6 +8,7 @@ import ru.selenium.training.ApplicationManager;
 import ru.selenium.training.TestBase;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class CheckDescriptionOfProductTest extends TestBase {
 
@@ -25,37 +26,32 @@ public class CheckDescriptionOfProductTest extends TestBase {
         app.openLitecartMall();
 
         List<WebElement> campaignArticle = ApplicationManager.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(campaignArticlesListLocatorMP));
-        for (int i = 0; i < campaignArticle.size(); i++) {
-
+        int bound = campaignArticle.size();
+        IntStream.range(0, bound).forEach(i -> {
             String articleNameMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(campaignArticleNameLocator)).getText();
             String articleOldPriceMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceLocatorMainPage)).getText();
             String articleNewPriceMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceLocatorMainPage)).getText();
-
             campaignArticle.get(i).click();
             String articleNameOnProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNameOnProductPageLocator)).getText();
             String articleOldPriceOnProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceProductPageLocator)).getText();
             String articleNewPriceOnProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceProductPageLocator)).getText();
-
             System.out.println("Check elements on the main page and the page of the product: ");
-
             if (articleNameMainPage.equals(articleNameOnProductPage)) {
                 System.out.println("-> compare name " + articleNameMainPage + " with " + articleNameOnProductPage + ": OK");
             } else {
                 System.out.println("-> compare name " + articleNameMainPage + " with " + articleNameOnProductPage + ": NOK");
             }
-
             if (articleOldPriceMainPage.equals(articleOldPriceOnProductPage)) {
                 System.out.println("-> compare old price " + articleOldPriceMainPage + " with " + articleOldPriceOnProductPage + ": OK");
             } else {
                 System.out.println("-> compare old price " + articleOldPriceMainPage + " with " + articleOldPriceOnProductPage + ": NOK");
             }
-
             if (articleNewPriceMainPage.equals(articleNewPriceOnProductPage)) {
                 System.out.println("-> compare new price " + articleNewPriceMainPage + " with " + articleNewPriceOnProductPage + ": OK");
             } else {
                 System.out.println("-> compare new price " + articleNewPriceMainPage + " with " + articleNewPriceOnProductPage + ": NOK");
             }
-        }
+        });
 
     }
 
@@ -65,36 +61,29 @@ public class CheckDescriptionOfProductTest extends TestBase {
         app.openLitecartMall();
         List<WebElement> campaignArticle = ApplicationManager.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(campaignArticlesListLocatorMP));
         System.out.println("Color and style on the main page:");
-
-        for (int i = 0; i < campaignArticle.size(); i++) {
-
+        int bound = campaignArticle.size();
+        for (int i = 0; i < bound; i++) {
             //check colors
             String articleOldPriceColorMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceLocatorMainPage)).getCssValue("color");
             System.out.println("Color of old price: " + articleOldPriceColorMainPage);
             defineColor(articleOldPriceColorMainPage);
-
             String articleNewPriceColorMainPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceLocatorMainPage)).getCssValue("color");
             System.out.println("Color of old price: " + articleNewPriceColorMainPage);
             defineColor(articleNewPriceColorMainPage);
-
             //check text sizes
             String oldPriceMainPageSize = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceLocatorMainPage)).getCssValue("font-size");
             String newPriceMainPageSize = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceLocatorMainPage)).getCssValue("font-size");
-
             double oldPriceMainPageSizeDouble = convertFontSizeToDouble(oldPriceMainPageSize);
             double newPriceMainPageSizeDouble = convertFontSizeToDouble(newPriceMainPageSize);
-
             System.out.println("Check text size: old price size (px): " + oldPriceMainPageSizeDouble + "; new price size (px): " + newPriceMainPageSizeDouble);
             if (newPriceMainPageSizeDouble > oldPriceMainPageSizeDouble) {
                 System.out.println("New price size text larger than old price size text: OK");
             } else {
                 System.out.println("New price size text less or equal to old price size text : NOK");
             }
-
             //Check strike
             String fontStyleMP = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceLocatorMainPage)).getCssValue("text-decoration-line");
             checkFontIsStrikeout(fontStyleMP);
-
             //Check bold
             String fontWeightMP = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleNewPriceLocatorMainPage)).getCssValue("font-weight");
             checkFontIsBold(fontWeightMP);
@@ -108,8 +97,8 @@ public class CheckDescriptionOfProductTest extends TestBase {
         System.out.println("Color and style on the product page:");
         List<WebElement> campaignArticle = ApplicationManager.wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(campaignArticlesListLocatorMP));
 
-        for (int i = 0; i < campaignArticle.size(); i++) {
-            campaignArticle.get(i).click();
+        for (WebElement webElement : campaignArticle) {
+            webElement.click();
 
             //check colors
             String articleOldPriceColorProductPage = ApplicationManager.wait.until(ExpectedConditions.visibilityOfElementLocated(articleOldPriceProductPageLocator)).getCssValue("color");
@@ -147,14 +136,13 @@ public class CheckDescriptionOfProductTest extends TestBase {
     // convert font size from string to double
     public Double convertFontSizeToDouble(String fontSize){
         String size = fontSize.replace("px", "");
-        double sizeDouble = Double.parseDouble(size);
-        return sizeDouble;
+        return Double.parseDouble(size);
     }
 
     //check if font is bold
     public void checkFontIsBold(String fontWeight) {
         boolean isBold = "bold".equals(fontWeight) || "bolder".equals(fontWeight) || Integer.parseInt(fontWeight) >= 700;
-        if (isBold == true) {
+        if (isBold) {
             System.out.println("Font is bold: OK");
         } else {
             System.out.println("Font is not bold: NOK");
@@ -164,7 +152,7 @@ public class CheckDescriptionOfProductTest extends TestBase {
     //check if font is strikeout
     public void checkFontIsStrikeout(String fontStyle) {
         boolean isStrikeout = "line-through".equals(fontStyle);
-        if (isStrikeout == true) {
+        if (isStrikeout) {
             System.out.println("Old price is strikeout: OK");
         } else {
             System.out.println("Old price is strikeout: NOK " + fontStyle);
