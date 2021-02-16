@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ExperimentsWithActions {
     private WebDriver driver = null;
@@ -59,17 +60,14 @@ public class ExperimentsWithActions {
         List<String> list1 = new ArrayList();
         List<String> list2 = new ArrayList();
 
-        List<WebElement> listResult1 = driver.findElements(wholeList1ResultLocator);
-        for (int i = 0; i < listResult1.size(); i++) {
-            list1.add(listResult1.get(i).getText());
-        }
-        List<WebElement> listResult2 = driver.findElements(wholeList2ResultLocator);
-        for (int i = 0; i < listResult2.size(); i++) {
-            list2.add(listResult2.get(i).getText());
-        }
+        driver.findElements(wholeList1ResultLocator).stream().forEach(listResult1 -> list1.add(listResult1.getText()));
+        System.out.println("1st list: ");
+        list1.forEach(System.out::println);
+        System.out.println("");
 
-        System.out.println("1st list: " + list1);
-        System.out.println("2nd list: " + list2);
+        driver.findElements(wholeList2ResultLocator).stream().forEach(listResult2 -> list2.add(listResult2.getText()));
+        System.out.println("2nd list: ");
+        list2.forEach(System.out::println);
     }
 
     @After
