@@ -11,6 +11,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ExperimentsWithActions {
     private WebDriver driver = null;
     private WebDriverWait wait;
@@ -23,6 +26,8 @@ public class ExperimentsWithActions {
 
     @Test
     public void moveElementsTest() {
+        final By wholeList1ResultLocator =  By.xpath("//ul[@id='sortable1']/li");
+        final By wholeList2ResultLocator =  By.xpath("//ul[@id='sortable2']/li");
         final By list1Item2Locator = By.xpath("//ul[@id='sortable1']/li[2]");
         final By list1Item4Locator = By.xpath("//ul[@id='sortable1']/li[4]");
         final By list2Item3Locator = By.xpath("//ul[@id='sortable2']/li[3]");
@@ -43,13 +48,28 @@ public class ExperimentsWithActions {
         String newItem4In2ndList = driver.findElement(list2Item4Locator).getText();
 
         Assert.assertTrue(newItem2In1stList.equals("Item 4"));
-        System.out.println("1st List, 2nd item: " + newItem2In1stList);
+        //System.out.println("1st List, 2nd item: " + newItem2In1stList);
 
         Assert.assertTrue(newItem3In2ndList.equals("Item 3"));
-        System.out.println("2nd list, 3rd item: " + newItem3In2ndList);
+        //System.out.println("2nd list, 3rd item: " + newItem3In2ndList);
 
         Assert.assertTrue(newItem4In2ndList.equals("Item 3"));
-        System.out.println("2nd list, 4th item: " + newItem4In2ndList);
+        //System.out.println("2nd list, 4th item: " + newItem4In2ndList);
+
+        List<String> list1 = new ArrayList();
+        List<String> list2 = new ArrayList();
+
+        List<WebElement> listResult1 = driver.findElements(wholeList1ResultLocator);
+        for (int i = 0; i < listResult1.size(); i++) {
+            list1.add(listResult1.get(i).getText());
+        }
+        List<WebElement> listResult2 = driver.findElements(wholeList2ResultLocator);
+        for (int i = 0; i < listResult2.size(); i++) {
+            list2.add(listResult2.get(i).getText());
+        }
+
+        System.out.println("1st list: " + list1);
+        System.out.println("2nd list: " + list2);
     }
 
     @After
